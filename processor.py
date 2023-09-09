@@ -2,7 +2,7 @@ import pandas as pd
 
 # download latest results from google sheets
 results_df = pd.read_csv("https://docs.google.com/spreadsheets/d/18JH_jUX1ifjVdBcxsQUnchi5alx0JOa0LBC62lXJQe4/export?format=csv")
-co2_df = pd.read_csv("https://docs.google.com/spreadsheets/d/1IAgwmM4-Cdpv8fK6TQHcoNfVHf0aXJNtMDtYEQ-q878/export?format=csv")
+state_co2_df = pd.read_csv("state_co2.csv")
 
 num_results = len(results_df)
 
@@ -12,17 +12,9 @@ num_results = len(results_df)
 # 2
 state = results_df['What state are you from?'][num_results-1]
 
-# 3
-zip_code = results_df['What is your zip code?'][num_results-1]
-
-
-
-
-
-
 
 
 # processing
 
-zip_c02 = co2_df[co2_df['Zip Code'] == 1001]['c02'].values[0]
-print(zip_c02)
+state_c02 = state_co2_df[state_co2_df['state'] == 'AK']['co2'].values[0]
+print(state_c02)
