@@ -3,28 +3,54 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Trail & Coffee</title>
-    <link rel="stylesheet" href="webDesign.css">
+    <link rel="stylesheet" href="stepStyling.css">
 </head>
 
 <body>
     <header>
-        <nav>
-            
-        </nav>
-        <div id="hero">
-            <h1>Measure your Carbon Footprint</h1>
+        <div id = "title-slogan">
+            <h1>Start with Your Footprint. <br>Step into the future. </h1>
         </div>
+        <div id = "byline">
+            <p>Did you Know? The average U.S. home uses about 11,000 kilowatt hours of electricity per year.</p>
+            <button id="learn-more-button" onclick="toggleAboutUs()">Learn More</button>
+        </div>  
     </header>
     <main>
-        <h2>Fill out the form below: </h2>
-            
+        <div id="about-us" style="display: none;">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+        </div>
+    
+        <div id="main-body">
+            <h2>General Data</h2>
+            <p>Here you can find information about average global carbon footprints.</p>
+            <img src="globe-image.jpg" alt="Globe Image">
+        </div>
+        <div id="secondary-section">
+            <h2>Step Towards a Sustainable Future</h2>
+            <p>Calculate your carbon footprint and take a step towards sustainability.</p>
+            <button id="calculator-button">Footprint Calculator</button>
+        </div>
+        <footer>
+            <p>&copy; Duke University - MLH HackDuke 2023</p>
+            <p>Developed by: Your Name and Your Team's Names</p>
+        </footer>
+    
+        <script>
+            function toggleAboutUs() {
+                var aboutUs = document.getElementById("about-us");
+                if (aboutUs.style.display === "none") {
+                    aboutUs.style.display = "block";
+                } else {
+                    aboutUs.style.display = "none";
+                }
+            }
+        </script>
+        <!--src="stepForward.js"-->
+
     </main>
     
-    <footer>
-        <p> &copy; Duke University - MLH HackDuke 2023</p>
-    </footer>
-
 </body>
 
 </html>
