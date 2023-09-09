@@ -5,6 +5,7 @@ results_df = pd.read_csv("https://docs.google.com/spreadsheets/d/18JH_jUX1ifjVdB
 state_co2_df = pd.read_csv("state_co2.csv")
 vehicle_emmisions_by_year = pd.read_csv("vehicle_emissions_by_year.csv")  # gallons per mile
 co2_by_electrical_grid = pd.read_csv("co2_by_electrical_grid.csv")  # lbs per mWh   
+co2_by_food = pd.read_csv("co2_by_food.csv")  # lbs co2 per lb product
 
 num_results = len(results_df)
 
