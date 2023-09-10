@@ -40,53 +40,6 @@ header {
     font-size: 42px;
 }
 
-#byline {
-    width: 100%;
-    height: 50px;
-    padding: 3px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: #245501;
-    font-size: 18px;
-    color: whitesmoke;
-    text-shadow: 0px 0px 2px black; 
-    margin-left: 5px;
-    border-radius: 8px;
-}
-
-#learn-more-button {
-    border-radius: 8px;
-    height: 36px;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-#learn-more-button:hover {
-    background-color: yellowgreen;
-    cursor: pointer;
-}
-
-#about-us {
-    padding: 6px 12px;
-    text-align: left;
-    background-color: #AAD576;
-    height: fit-content;
-    margin-top: 0px;
-}
-
-#image-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-#image-container div {
-    background-color: whitesmoke;
-    height: 400px;
-    width: 20%;
-}
-
 main {
     font-family: 'Mulish', sans-serif;
 }
@@ -107,22 +60,6 @@ main {
     grid-template-rows: repeat(2, 300px); /* 2 rows with a fixed height of 200px */
     gap: 20px; /* Adjust the gap between grid items as needed */
     font-weight: bold;
-}
-
-.grid-item {
-    background-color: rgb(255, 255, 255); /* Style the grid items as needed */
-    padding: 20px;
-    text-align: center;
-    border-radius: 24px;
-}
-
-#secondary-section {
-    background-color: #1A4301;
-    color: whitesmoke;
-    height: fit-content;
-    padding: 12px;
-    text-align: center;
-    align-items: center;
 }
 
 footer {

@@ -18,18 +18,18 @@ num_results = len(survey_results_df)
 # 1
 state = survey_results_df['What state are you from?'][num_results-1]
 user_state_emissions = state_co2_df["avg_co2"][state_co2_df["state"] == state]
-user_state_electricity = co2_by_electrical_grid["lb/mwh"][co2_by_electrical_grid["state"] == state]
+user_state_electricity = co2_by_electrical_grid["lb/mwh"][co2_by_electrical_grid["state"] == state] #calc
 
 # # 2
-foods = survey_results_df['What food products make up your diet?'][num_results-1]
+foods = survey_results_df['What food products make up your diet?'][num_results-1] 
 foods = foods.split(", ")
-foods_co2 = 0
+foods_co2 = 0 #calc
 for food in foods:
     foods_co2 += co2_by_food["Total_emissions"][co2_by_food["Food product"] == food].values[0]
 
 # # 3
 transportation = survey_results_df['How do you get around?'][num_results-1]
-user_transportation = survey_results_df["How do you get around?"]
+user_transportation = survey_results_df["How do you get around?"] 
 
 # # 4
 car_year = survey_results_df['If you drive what year was your car made?'][num_results-1]
@@ -45,7 +45,7 @@ else:
 
 car_ch4 = miles_per_year * vehicle_emmisions_by_year["ch4"][vehicle_emmisions_by_year["year"] == car_year].values[0]
 car_n2o = miles_per_year * vehicle_emmisions_by_year["n2o"][vehicle_emmisions_by_year["year"] == car_year].values[0]
-car_emissions = car_ch4 + car_n2o
+car_emissions = car_ch4 + car_n2o #calc
 
 # # 6
 housing = survey_results_df['What is your housing situation?'][num_results-1]
@@ -53,7 +53,7 @@ user_housing = survey_results_df["What is your housing situation?"]
 
 # #7
 water = survey_results_df['Do you [mostly] drink from a refillable Water Bottle or drink bottled water?'][num_results-1]
-user_water_emissions = survey_results_df["Do you [mostly] drink from a refillable Water Bottle or drink bottled water?"]
+user_water_emissions = survey_results_df["Do you [mostly] drink from a refillable Water Bottle or drink bottled water?"] #calc
 
 # processing
 
