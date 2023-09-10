@@ -4,14 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="stepStyling.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,600;1,200&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <div id = "title-slogan">
-            <h1>Start with Your Footprint. <br>Step into the future. </h1>
+        <div class="logo">
+            <img src="https://drive.google.com/uc?id=1JiC096YTg1DDxHs0sZYPd6TiGmEE-ZM9" alt="Rotating globe with footprints" style="width: 75px; border-radius: 50%;">
         </div>
-        <div id = "byline">
+        <div id = "title-slogan">
+            <p>Start with Your Footprint.<br> Step into the future. </p>
+        </div>
+        <div id="byline">
             <p>Did you Know? The average U.S. home uses about 11,000 kilowatt hours of electricity per year.</p>
             <button id="learn-more-button" onclick="toggleAboutUs()">Learn More</button>
         </div>  
@@ -19,22 +28,67 @@
     <main>
         <div id="about-us" style="display: none;">
             <h2>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+            <p>INSERT MISSION STATEMENT HERE</p>
+            <div id="image-container">
+                <div id="alex-profile">
+                    <img src="./media/profile-pictures/Alex.png">
+                    <p></p>
+                </div>
+                <div id="joe-profile">
+                    <img src="./media/profile-pictures/Joe.png">
+                    <p></p>
+                </div>
+                <div id="michael-profile">
+                    <img src="./media/profile-pictures/Michael.png" style="max-height: 300px; object-fit: cover;">
+                    <p></p>
+                </div>
+                <div id="riley-profile">
+                    <img src="./media/profile-pictures/Riley.png">
+                    <p></p>
+                </div>
+            </div>
         </div>
     
         <div id="main-body">
             <h2>General Data</h2>
             <p>Here you can find information about average global carbon footprints.</p>
-            <img src="globe-image.jpg" alt="Globe Image">
+            <div class="grid-container">
+                <div class="grid-item">
+                    <img src="./media/Footprint-1-removebg.png" style="max-width: 190px; object-fit: cover;"/>
+                    <p>13 Metric Tons per Capita of Annual CO2 Emissions in the United States</p>
+                </div>
+                <div class="grid-item">
+                    <img />
+                </div>
+                <div class="grid-item">
+                    <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngitem.com%2Fmiddle%2FThJmiTx_bulb-green-action-fund-logo-hd-png-download%2F&psig=AOvVaw3JPsRiLGSapJ-Fl_CUM2Bu&ust=1694389036658000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLj66ZbZnoEDFQAAAAAdAAAAABAE"><img src="./media/greenLightBulb-removebg.png" alt="Green Light Bulb Image" style="max-width: 115px; object-fit: cover; padding-top: 10px;"/></a>
+                    <p>Yearly kWh saved by converting to LED lighting is 1463.7 kWH</p>
+                </div>
+                <div class="grid-item">
+                    <a href="https://commons.wikimedia.org/wiki/File:Aiga_bus_on_green_circle.svg"><img src="./media/busgreenRemoved-removebg-preview.png" alt="Green Bus Image" style="max-width: 160px; object-fit: cover;"/></a>
+                    <p>On average, drivers in the U.S. travel 13,476 miles per year</p>
+                    <p>Source: U.S. Department of Transportation's Federal Highway Administration (FHWA)</p>
+                </div>
+                <div class="grid-item">
+                    <img src="https://8billiontrees.com/wp-content/uploads/2021/06/average-carbon-footprint-per-person-diet-emissions-1.png" style="max-width: 450px; object-fit: cover;"/>
+                    <p></p>
+                </div>
+                <div class="grid-item">
+                    <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fzh%2Fimage-vector%2Felectric-plane-icon-airplane-green-circle-2187143761&psig=AOvVaw1u7vBjvat8_fmCeTmKDDCU&ust=1694389146443000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJC4nMvZnoEDFQAAAAAdAAAAABAK"><img src="./media/planeLogo-removebg.png" alt = "Green Plane Logo" style="max-width: 170px; object-fit: cover;"/></a>
+                    <p>Flying from MIA to NYC and back generates ~301 kg CO2; that's more than 26 countries produce in a year!</p>
+                </div>
+            </div>
+            
         </div>
+
         <div id="secondary-section">
             <h2>Step Towards a Sustainable Future</h2>
             <p>Calculate your carbon footprint and take a step towards sustainability.</p>
-            <button id="calculator-button">Footprint Calculator</button>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf29S_TPdn_c2kHkXqTqcFoi8jWvwbWpai9Zax1baxUgs3dSw/viewform?embedded=true" width="640" height="2906" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
         <footer>
             <p>&copy; Duke University - MLH HackDuke 2023</p>
-            <p>Developed by: Your Name and Your Team's Names</p>
+            <p>Developed by: Joseph Ricci, Riley Harper, Alex Baptiste, & Michael Puglise</p>
         </footer>
     
         <script>
