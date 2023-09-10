@@ -3,11 +3,6 @@ import pandas as pd
 g_co2_per_bottle = 0.1825  # lbs of co2
 lbs_of_food_consumed_per_year = 2000
 
-# download latest results from google sheets
-# response = requests.get("https://docs.google.com/spreadsheets/d/1lkhS5Cd32grN9zt36ejl-ndQSt3yKEx1aLhh-eBPBtk/")
-# csv_data = StringIO(response.text)
-# survey_results_df = pd.read_csv(csv_data, on_bad_lines='skip')
-
 survey_results_df = pd.read_csv("https://docs.google.com/spreadsheets/d/1lkhS5Cd32grN9zt36ejl-ndQSt3yKEx1aLhh-eBPBtk/export?format=csv")
 state_co2_df = pd.read_csv("state_co2.csv")
 vehicle_emmisions_by_year = pd.read_csv("vehicle_emmisions_by_year.csv")  # gallons per mile
@@ -26,8 +21,11 @@ foods = survey_results_df['What food products make up your diet?'][num_results-1
 foods = foods.split(", ")
 foods_co2 = 0 #calc
 for food in foods:
-    foods_co2 += co2_by_food["Total_emissions"][co2_by_food["Food product"] == food].values[0]
-foods_co2 = foods_co2 * lbs_of_food_consumed_per_year
+    try:
+        foods_co2 += co2_by_food["Total_emissions"][co2_by_food["Food product"] == food].values[0]  #TODO: troubleshoot "IndexError: index 0 is out of bounds for axis 0 with size 0" that happens on some runs
+    except:
+        pass
+foods_co2 = round(foods_co2 * lbs_of_food_consumed_per_year)
 
 # used for calculating car emissions
 car_year = survey_results_df['If you drive what year was your car made?'][num_results-1]
@@ -45,7 +43,7 @@ else:
 
 car_ch4 = miles_per_year * vehicle_emmisions_by_year["ch4"][vehicle_emmisions_by_year["year"] == car_year].values[0]
 car_n2o = miles_per_year * vehicle_emmisions_by_year["n2o"][vehicle_emmisions_by_year["year"] == car_year].values[0]
-car_emissions = car_ch4 + car_n2o
+car_emissions = round(car_ch4 + car_n2o)
 
 # housing emissions
 housing = survey_results_df['What is your housing situation?'][num_results-1]
@@ -56,15 +54,24 @@ if housing == "Apartment":
 if housing == "House":
     housing_electricity_usage = 13  #mwh
 
-housing_emmisions = user_state_electricity * housing_electricity_usage #calc
+housing_emmisions = round(user_state_electricity * housing_electricity_usage)
 
 # water emissions
 water = survey_results_df['Do you mostly drink from a refillable Water Bottle or drink bottled water?'][num_results-1]
 if water == "Refillable Bottle":
     water_emissions = 0
 else:
-    water_emissions = 156 * g_co2_per_bottle  # 156 bottles per year
+    water_emissions = round(156 * g_co2_per_bottle)  # 156 bottles per year
 
 total_emissions = foods_co2 + car_emissions + housing_emmisions + water_emissions
 
-print(total_emissions)
+with open("results_data.txt", "w") as file:
+    file.write(str(total_emissions))
+    file.write("\n")
+    file.write(str(foods_co2))
+    file.write("\n")
+    file.write(str(car_emissions))
+    file.write("\n")
+    file.write(str(housing_emmisions))
+    file.write("\n")
+    file.write(str(water_emissions))
