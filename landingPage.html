@@ -10,6 +10,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fontawesome.com/icons/house?f=classic&s=solid">
+    <style>
+        /* Add CSS styles for the navbar */
+        ul.navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #333; /* Background color of the navbar */
+            overflow: hidden;
+        }
+
+        li.navitem {
+            float: left;
+        }
+
+        li.navitem a {
+            display: block;
+            color: white; /* Text color of the navbar links */
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li.navitem a:hover {
+            background-color: #ddd; /* Background color on hover */
+            color: black; /* Text color on hover */
+        }
+    </style>
 </head>
 
 <body>
@@ -20,14 +48,19 @@
         <div id = "title-slogan">
             <p>Start with Your Footprint.<br> Step into the future. </p>
         </div>
-        <div id="byline">
+        <div id="byline" style="background-color: #143601">
             <p>Did you Know? The average U.S. home uses about 11,000 kilowatt hours of electricity per year.</p>
             <button id="learn-more-button" onclick="toggleAboutUs()">Learn More</button>
         </div>  
     </header>
+    <ul class="navbar">
+        <li class="navitem"><a href="#home"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li class="navitem"><a href="#about"><i class="fa-solid fa-user"></i> About</a></li>
+        <li class="navitem"><a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+    </ul>
     <main>
         <div id = "welcome">
-            <p>Welcome to First Step</p>
+            <h2>Welcome to First Step</h2>
             <p>At First Step, we are passionate about making a difference in the world by addressing one of the most pressing 
                 challenges of our time: climate change. Our organization was founded on the belief that every individual has 
                 the power to reduce their carbon footprint and contribute to a more sustainable future for our planet.</p>
@@ -71,7 +104,7 @@
         </div>
     
         <div id="main-body">
-            <h2>General Data</h2>
+            <h1>General Data</h1>
             <p>Did you know that every small action you take today can have a monumental impact on our planet's future? 
                 Discover the power of change in the palm of your hand—explore our data-driven guide to reducing your 
                 carbon footprint and embark on a journey toward a sustainable tomorrow.</p>

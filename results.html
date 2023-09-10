@@ -10,6 +10,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 300px;
+            margin: 0 auto;
+        }
+    
+        tr {
+            border-bottom: 1px solid #ddd;
+        }
+    
+        td {
+            padding: 8px;
+            text-align: left;
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+    
+        #total-emissions {
+            background-color: #333;
+            color: white;
+            font-size: 18px;
+        }
+    
+        /* Style individual rows if needed */
+        /* For example, to highlight the "Your Car Emissions" row */
+        /* #car-emissions {
+            background-color: #f0c419;
+        } */
+    </style>
 </head>
 
 <body>
@@ -23,9 +53,28 @@
     </header>
     
     <div id="main-body">
-        <h2>Your results: </h2>
-        
-            
+        <table>
+            <tr>
+                <td id="total-emissions">Your Total Emissions:</td>
+                <td id="total-emissions">0</td>
+            </tr>
+            <tr>
+                <td id="foods-co2">Your Food Emissions:</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td id="car-emissions">Your Car Emissions:</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td id="housing-emmisions">Your Housing Emissions:</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td id="water-emissions">Your Water Emissions:</td>
+                <td>0</td>
+            </tr>
+        </table>  
     </div>
 
         <footer>
@@ -34,7 +83,77 @@
         </footer>
     
         <script>
+            // JavaScript code to set a variable
+            var totalEmissions;
+            var foodsCo2;
+            var carEmissions;
+            var housingEmissions;
+            var waterEmissions;
+        
+            //read result_data.txt and update variables
+            const { exec } = require('child_process');
+
+            // Replace 'your-python-script.py' with the name of your Python script
+            const pythonScript = 'processor.py';
+
+            // Execute the Python script
+            exec(`python ${pythonScript}`, (error, stdout, stderr) => {
+                if (error) {
+                console.error(`Error executing the Python script: ${error}`);
+                return;
+                }
+                console.log(`Python script output: ${stdout}`);
+            });
+
+            function handleFileSelect(event) {
+            const selectedFile = results_data.txt;
+            const reader = new FileReader();
+
+            // Define a function to handle when the file is loaded
+            reader.onload = function(e) {
+                const fileContents = e.target.result;
+                
+                // Split the content into an array of lines
+                const lines = fileContents.split('\n');
+                
+                lines.forEach((line, index) => {
+                    
+                    if (index == 0){
+                        totalEmissions = line;
+                    } else if (index == 1){
+                        foodsCo2 = line;
+                    } else if (index == 2){
+                        carEmissions = line;
+                    } else if (index == 3){
+                        housingEmissions = line;
+                    } else if (index == 4){
+                        waterEmissions = line;
+                    }
+                
+                    console.log(`Line ${index + 1}: ${line}`);
+                });
+            };
+
+                // Read the file as text
+                reader.readAsText(selectedFile);
+            }
             
+            // Access and display the variable in HTML
+            var resultElement1 = document.getElementById("total-emissions");
+            resultElement1.innerHTML = totalEmissions;
+
+            var resultElement2 = document.getElementById("foods-co2");
+            resultElement2.innerHTML = foodsCo2;
+
+            var resultElement3 = document.getElementById("car-emissions");
+            resultElement3.innerHTML = carEmissions;
+
+            var resultElement4 = document.getElementById("housing-emmisions");
+            resultElement4.innerHTML = housingEmissions;
+
+            var resultElement5 = document.getElementById("water-emissions");
+            resultElement5.innerHTML = waterEmissions;
+
         </script>
         <!--src="stepForward.js"-->
     

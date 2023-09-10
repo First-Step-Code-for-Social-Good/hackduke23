@@ -8,7 +8,7 @@ header {
     justify-content: space-between;
     padding: 6px 12px 6px 0px;
     height: 400px;
-    background-color: darkcyan;
+    background-color: hsl(87, 53%, 65%);
     background-image: url(https://www.oceaneering.com/wp-content/uploads/2019/04/sustainability-header-bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
