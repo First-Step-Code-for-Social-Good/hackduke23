@@ -22,7 +22,14 @@ num_results = len(survey_results_df)
 state = survey_results_df['What state are you from?'][num_results-1]
 
 # # 2
-foods = survey_results_df['What food products make up your diet?'][num_results-1]
+foods = survey_results_df['What food products make up your diet?'][num_results-2]
+foods = foods.split(", ")
+total_food_co2 = 0
+for food in foods:
+    total_food_co2 += co2_by_food["Total_emissions"][co2_by_food["Food product"] == food].values[0]
+
+print(total_food_co2)
+
 
 # # 3
 transportation = survey_results_df['How do you get around?'][num_results-1]
@@ -42,3 +49,5 @@ water = survey_results_df['Do you [mostly] drink from a refillable Water Bottle 
 # processing
 #test
 print(survey_results_df["What food products make up your diet?"][num_results-1])
+
+# this_users_state_co2_emmissions = state_co2_df["avg_co2"][state_co2_df["state"] == state]
