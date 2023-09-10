@@ -1,6 +1,4 @@
 import pandas as pd
-from io import StringIO
-import requests
 
 g_co2_per_bottle = 0.1825  # lbs of co2
 
@@ -17,19 +15,15 @@ co2_by_food = pd.read_csv("co2_by_food.csv")  # lbs co2 per lb product
 
 num_results = len(survey_results_df)
 
-
 # 1
 state = survey_results_df['What state are you from?'][num_results-1]
 
 # # 2
-foods = survey_results_df['What food products make up your diet?'][num_results-2]
+foods = survey_results_df['What food products make up your diet?'][num_results-1]
 foods = foods.split(", ")
-total_food_co2 = 0
+foods_co2 = 0
 for food in foods:
-    total_food_co2 += co2_by_food["Total_emissions"][co2_by_food["Food product"] == food].values[0]
-
-print(total_food_co2)
-
+    foods_co2 += co2_by_food["Total_emissions"][co2_by_food["Food product"] == food].values[0]
 
 # # 3
 transportation = survey_results_df['How do you get around?'][num_results-1]
@@ -39,6 +33,9 @@ car_year = survey_results_df['If you drive what year was your car made?'][num_re
 
 # # 5
 miles_per_year = survey_results_df['If you drive how many miles a year on average?'][num_results-1]
+car_ch4 = miles_per_year * vehicle_emmisions_by_year["ch4"][vehicle_emmisions_by_year["year"] == car_year].values[0]
+car_n2o = miles_per_year * vehicle_emmisions_by_year["n2o"][vehicle_emmisions_by_year["year"] == car_year].values[0]
+car_emissions = car_ch4 + car_n2o
 
 # # 6
 housing = survey_results_df['What is your housing situation?'][num_results-1]
