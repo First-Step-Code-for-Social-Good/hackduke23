@@ -1,29 +1,44 @@
 import pandas as pd
+from io import StringIO
+import requests
+
+g_co2_per_bottle = 0.1825  # lbs of co2
 
 # download latest results from google sheets
-results_df = pd.read_csv("https://docs.google.com/spreadsheets/d/18JH_jUX1ifjVdBcxsQUnchi5alx0JOa0LBC62lXJQe4/export?format=csv")
+# response = requests.get("https://docs.google.com/spreadsheets/d/1lkhS5Cd32grN9zt36ejl-ndQSt3yKEx1aLhh-eBPBtk/")
+# csv_data = StringIO(response.text)
+# survey_results_df = pd.read_csv(csv_data, on_bad_lines='skip')
+
+survey_results_df = pd.read_csv("https://docs.google.com/spreadsheets/d/1lkhS5Cd32grN9zt36ejl-ndQSt3yKEx1aLhh-eBPBtk/export?format=csv")
 state_co2_df = pd.read_csv("state_co2.csv")
-vehicle_emmisions_by_year = pd.read_csv("vehicle_emissions_by_year.csv")  # gallons per mile
+vehicle_emmisions_by_year = pd.read_csv("vehicle_emmisions_by_year.csv")  # gallons per mile
 co2_by_electrical_grid = pd.read_csv("co2_by_electrical_grid.csv")  # lbs per mWh   
 co2_by_food = pd.read_csv("co2_by_food.csv")  # lbs co2 per lb product
 
-num_results = len(results_df)
+num_results = len(survey_results_df)
 
-# example of how to access a question's answer for most recent response
-# print(results_df['test q 1'][num_results-1])
 
-# 2
-state = results_df['What state are you from?'][num_results-1]
+# 1
+state = survey_results_df['What state are you from?'][num_results-1]
 
-# 3
-car_year = results_df['What year was your car manufactured?'][num_results-1]
+# # 2
+foods = survey_results_df['What food products make up your diet?'][num_results-1]
 
-# how many miles do you drive per year?
-miles_per_year = results_df['How many miles do you drive per year?'][num_results-1]
+# # 3
+transportation = survey_results_df['How do you get around?'][num_results-1]
+
+# # 4
+car_year = survey_results_df['If you drive what year was your car made?'][num_results-1]
+
+# # 5
+miles_per_year = survey_results_df['If you drive how many miles a year on average?'][num_results-1]
+
+# # 6
+housing = survey_results_df['What is your housing situation?'][num_results-1]
+
+# #7
+water = survey_results_df['Do you [mostly] drink from a refillable Water Bottle or drink bottled water?'][num_results-1]
 
 # processing
-
-state_c02 = state_co2_df[state_co2_df['state'] == 'AK']['co2'].values[0]
-
-
-print(state_c02)
+#test
+print(survey_results_df["What food products make up your diet?"][num_results-1])
