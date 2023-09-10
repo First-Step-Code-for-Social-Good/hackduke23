@@ -1,0 +1,16 @@
+---
+title: "HackDuke"
+output: html_document
+date: "2023-09-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(googlesheets4)
+```
+
+```{r}
+gs4_deauth()  # Ensure no previous authentication is active
+sheet <- read_sheet("https://docs.google.com/spreadsheets/d/1lkhS5Cd32grN9zt36ejl-ndQSt3yKEx1aLhh-eBPBtk/edit#gid=1153834935")
+sheet
+```
