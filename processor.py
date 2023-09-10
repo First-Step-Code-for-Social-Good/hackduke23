@@ -56,4 +56,5 @@ water = survey_results_df['Do you [mostly] drink from a refillable Water Bottle 
 user_water_emissions = survey_results_df["Do you [mostly] drink from a refillable Water Bottle or drink bottled water?"]
 
 # processing
-#test
+
+total_emissions = 0
