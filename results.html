@@ -83,6 +83,7 @@
         </footer>
     
         <script>
+            npm install csv-parse
             // JavaScript code to set a variable
             var totalEmissions;
             var foodsCo2;
@@ -90,53 +91,123 @@
             var housingEmissions;
             var waterEmissions;
         
-            //read result_data.txt and update variables
-            const { exec } = require('child_process');
+            //--------------------------------
 
-            // Replace 'your-python-script.py' with the name of your Python script
-            const pythonScript = 'processor.py';
+            // Constants
+            const gCo2PerBottle = 0.1825; // lbs of CO2
+            const lbsOfFoodConsumedPerYear = 2000;
 
-            // Execute the Python script
-            exec(`python ${pythonScript}`, (error, stdout, stderr) => {
-                if (error) {
-                console.error(`Error executing the Python script: ${error}`);
-                return;
-                }
-                console.log(`Python script output: ${stdout}`);
-            });
+            // Mock data (replace with actual data loading if needed)
+            const surveyResultsData = [
+            /* ... */ // Replace with your survey data
+            ];
 
-            function handleFileSelect(event) {
-            const selectedFile = results_data.txt;
-            const reader = new FileReader();
+            const stateCo2Data = [
+            /* ... */ // Replace with state CO2 data
+            ];
 
-            // Define a function to handle when the file is loaded
-            reader.onload = function(e) {
-                const fileContents = e.target.result;
-                
-                // Split the content into an array of lines
-                const lines = fileContents.split('\n');
-                
-                lines.forEach((line, index) => {
-                    
-                    if (index == 0){
-                        totalEmissions = line;
-                    } else if (index == 1){
-                        foodsCo2 = line;
-                    } else if (index == 2){
-                        carEmissions = line;
-                    } else if (index == 3){
-                        housingEmissions = line;
-                    } else if (index == 4){
-                        waterEmissions = line;
+            const vehicleEmissionsData = [
+            /* ... */ // Replace with vehicle emissions data
+            ];
+
+            const co2ByElectricalGridData = [
+            /* ... */ // Replace with CO2 by electrical grid data
+            ];
+
+            const co2ByFoodData = [
+            /* ... */ // Replace with CO2 by food data
+            ];
+
+            // Function to calculate food emissions
+            function calculateFoodEmissions(foods) {
+                let foodsCo2 = 0;
+                for (const food of foods) {
+                    try {
+                    const foodCo2 = co2ByFoodData.find(
+                        (item) => item["Food product"] === food
+                    );
+                    if (foodCo2) {
+                        foodsCo2 += foodCo2["Total_emissions"];
                     }
-                
-                    console.log(`Line ${index + 1}: ${line}`);
-                });
-            };
-
-                // Read the file as text
-                reader.readAsText(selectedFile);
+                    } catch (error) {
+                    console.error("Error calculating food emissions: " + error);
+                    }
+                }
+                return Math.round(foodsCo2 * lbsOfFoodConsumedPerYear);
             }
+
+            // Function to calculate car emissions
+            function calculateCarEmissions(carYear, milesPerYear) {
+                // Define mappings for car years (replace with actual data)
+                const carYearMappings = {
+                    /* Add mappings for car years */
+                };
+
+                // Define default miles per year if not in provided ranges
+                if (milesPerYear === "0-1000") {
+                    milesPerYear = 500;
+                } else if (milesPerYear === "1000-15,000") {
+                    milesPerYear = 8000;
+                } else if (milesPerYear === "I do not drive") {
+                    milesPerYear = 0;
+                } else {
+                    milesPerYear = 20000;
+                }
+
+                const carCh4 = milesPerYear * carYearMappings[carYear].ch4;
+                const carN2o = milesPerYear * carYearMappings[carYear].n2o;
+                return Math.round(carCh4 + carN2o);
+            }
+
+            // Function to calculate housing emissions
+            function calculateHousingEmissions(housing) {
+                // Define mappings for housing types (replace with actual data)
+                const housingMappings = {
+                    /* Add mappings for housing types */
+                };
+
+                const userState = surveyResultsData[surveyResultsData.length - 1]["What state are you from?"];
+                const userStateEmissions = stateCo2Data.find(
+                    (item) => item.state === userState
+                )?.avg_co2;
+
+                const userStateElectricity = co2ByElectricalGridData.find(
+                    (item) => item.state === userState
+                )?.["lb/mwh"];
+
+                if (!userStateEmissions || !userStateElectricity) {
+                    console.error("Error retrieving state emissions data.");
+                    return 0;
+                }
+
+                const housingElectricityUsage = housingMappings[housing];
+                return Math.round(userStateElectricity * housingElectricityUsage);
+            }
+
+            // Function to calculate water emissions
+            function calculateWaterEmissions(water) {
+                if (water === "Refillable Bottle") {
+                    return 0;
+                } else {
+                    return Math.round(156 * gCo2PerBottle); // 156 bottles per year
+                }
+            }
+
+            // Calculate emissions
+            const numResults = surveyResultsData.length;
+            const foods = surveyResultsData[numResults - 1]["What food products make up your diet?"].split(", ");
+            const carYear = surveyResultsData[numResults - 1]["If you drive what year was your car made?"];
+            const milesPerYear = surveyResultsData[numResults - 1]["If you drive how many miles a year on average?"];
+            const housing = surveyResultsData[numResults - 1]["What is your housing situation?"];
+            const water = surveyResultsData[numResults - 1]["Do you mostly drink from a refillable Water Bottle or drink bottled water?"];
+
+            foodsCo2 = calculateFoodEmissions(foods);
+            carEmissions = calculateCarEmissions(carYear, milesPerYear);
+            housingEmissions = calculateHousingEmissions(housing);
+            waterEmissions = calculateWaterEmissions(water);
+            totalEmissions = (foodsCo2 + carEmissions + housingEmissions + waterEmissions);
+
+            //--------------------------------
             
             // Access and display the variable in HTML
             var resultElement1 = document.getElementById("total-emissions");

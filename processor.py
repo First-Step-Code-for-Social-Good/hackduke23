@@ -48,7 +48,7 @@ car_emissions = round(car_ch4 + car_n2o)
 # housing emissions
 housing = survey_results_df['What is your housing situation?'][num_results-1]
 if housing == "Student Dorm":
-    housing_electricity_usage = 1  #mwh
+    housing_electricity_usage = 1  #megawatt hours (mwh)
 if housing == "Apartment":
     housing_electricity_usage = 3  #mwh
 if housing == "House":
