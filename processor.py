@@ -19,7 +19,7 @@ num_results = len(survey_results_df)
 # electricty efficienty used for calculating housing emissions
 state = survey_results_df['What state are you from?'][num_results-1]
 user_state_emissions = state_co2_df["avg_co2"][state_co2_df["state"] == state]
-user_state_electricity = co2_by_electrical_grid["lb/mwh"][co2_by_electrical_grid["state"] == state] 
+user_state_electricity = co2_by_electrical_grid["lb/mwh"][co2_by_electrical_grid["state"] == state].values[0]
 
 # food emissions
 foods = survey_results_df['What food products make up your diet?'][num_results-1] 
@@ -59,10 +59,12 @@ if housing == "House":
 housing_emmisions = user_state_electricity * housing_electricity_usage #calc
 
 # water emissions
-water = survey_results_df['Do you [mostly] drink from a refillable Water Bottle or drink bottled water?'][num_results-1]
+water = survey_results_df['Do you mostly drink from a refillable Water Bottle or drink bottled water?'][num_results-1]
 if water == "Refillable Bottle":
     water_emissions = 0
 else:
     water_emissions = 156 * g_co2_per_bottle  # 156 bottles per year
 
 total_emissions = foods_co2 + car_emissions + housing_emmisions + water_emissions
+
+print(total_emissions)
